@@ -1,6 +1,6 @@
 # Kafka Go
 
-(Mostly just some ideas on potential abstractions) -- Feel free to send PRs
+(Mostly just some ideas on potential abstractions) -- Feel free to send PRs  （大多数只是关于潜在抽象的想法）-随时发送PR
 
 Kafka library in Go. This builds on Sarama but offers a few differences:
 
