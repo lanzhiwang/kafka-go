@@ -49,3 +49,7 @@ govendor test +local
 # License
 
 MIT
+
+https://github.com/lanzhiwang/kafka-go/commits/master?before=c66d8ca149e7f1a7905b47a60962745ceb08a6a9+420&branch=master
+
+remove error.go
