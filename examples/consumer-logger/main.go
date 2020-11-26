@@ -4,13 +4,25 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 	"strings"
+	"time"
 
 	kafka "github.com/segmentio/kafka-go"
+	scram "github.com/segmentio/kafka-go/sasl/scram"
 )
 
 func getKafkaReader(kafkaURL, topic, groupID string) *kafka.Reader {
+	mechanism, err := scram.Mechanism(scram.SHA512, "admin", "mTtCGCWKZoA_xRzW")
+	if err != nil {
+		panic(err)
+	}
+
+	dialer := &kafka.Dialer{
+		Timeout:       10 * time.Second,
+		DualStack:     true,
+		SASLMechanism: mechanism,
+	}
+
 	brokers := strings.Split(kafkaURL, ",")
 	return kafka.NewReader(kafka.ReaderConfig{
 		Brokers:  brokers,
@@ -18,14 +30,15 @@ func getKafkaReader(kafkaURL, topic, groupID string) *kafka.Reader {
 		Topic:    topic,
 		MinBytes: 10e3, // 10KB
 		MaxBytes: 10e6, // 10MB
+		Dialer:   dialer,
 	})
 }
 
 func main() {
 	// get kafka reader using environment variables.
-	kafkaURL := os.Getenv("kafkaURL")
-	topic := os.Getenv("topic")
-	groupID := os.Getenv("groupID")
+	kafkaURL := "10.0.128.237:30777"
+	topic := "my-topic"
+	groupID := "my-group-1"
 
 	reader := getKafkaReader(kafkaURL, topic, groupID)
 
