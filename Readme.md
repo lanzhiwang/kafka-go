@@ -117,3 +117,9 @@ for iter.Next(&msg) {
 # License
 
 MIT
+
+commit log
+
+https://github.com/lanzhiwang/kafka-go/commits/master?after=c66d8ca149e7f1a7905b47a60962745ceb08a6a9+419&branch=master
+
+Refactored kafka reader
